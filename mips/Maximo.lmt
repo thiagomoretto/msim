@@ -1,0 +1,46 @@
+# Programa Maximo.lmt:
+#	Encontra o elemento maximo de um vetor a de n elementos (n > 0).
+
+# Algoritmo:
+#	maximo := a[0]
+#	para i := 1 ate n - 1 faca
+#		se maximo < a[i] entao
+#			maximo := a[i]
+
+# Registradores usados:
+#	$t0 - i
+#	$t1 - endereco de a[i]
+#	$t2 - maximo
+#	$t3 - n
+#	$t4 - a[i]
+#	$t5 - resultado de (maximo < a[i])
+
+	add	$t0,	$zero,	$zero			# i = 0
+	lw	$t2,	8	($gp)			# maximo = a[0]
+        lw	$t3,	0	($gp)			# $t3 = n
+	addi	$t1,	$gp,	8
+
+loop:	addi	$t0,	$t0,	1			# i = i + 1
+	beq	$t0,	$t3,	fim_loop		# se i = n entao sai do loop
+	addi	$t1,	$t1,	4			# $t1 = endereco de a[i]
+   	lw	$t4,	0($t1)				# $t4 = a[i]
+      	slt	$t5,	$t2,	$t4			# se maximo >= a[i] entao
+        beq	$t5,	$zero,	nao_muda		# desvia para nao_muda
+	add	$t2,	$t4,	$zero			# maximo = a[i]
+
+nao_muda:	j 	loop				# volta para inicio do loop
+fim_loop:	sw	$t2,	4($gp)		# maximo = $t2
+			hlt
+
+n:		9
+maximo:		0
+a:		50
+         	33
+		70
+		94
+		110
+		78
+		12
+		82
+		9
+

@@ -1,0 +1,21 @@
+	addi 	$t2, $t2, 10
+	lw	$t0,0($gp)
+	lw	$t1,4($gp)
+	addi	$sp,$sp,4
+	sw	$t1,0($sp)
+	addi	$sp,$sp,16
+	add	$t0,$t0,$t1
+	sw	$t0,0($gp)
+	j nervo
+
+nervo:	addi $t2, $t2, 25
+		j nervo2
+		hlt
+
+nervo2:	addi $t2, $t2, 3
+		hlt
+
+a: 33
+b: 11
+c: 0
+

@@ -1,0 +1,55 @@
+# Programa Multiplic.lmt:
+#	Calcula uma variavel a como sendo a multiplicacao de duas variaveis b e c.
+#  Usa uma rotina que realiza a multiplicacao atraves de somas.
+
+# Algoritmo:
+#
+#	a := mult(b, c)
+#
+#	rotina mult(x, y)
+#		result := 0
+#		para i := 1 ate absoluto(x) faca
+#			result := result + y
+#		se x < 0 entao
+#			result := - result
+#		retorna result
+
+# Registradores usados:
+#	$a0 - argumento x da rotina mult
+#	$a1 - argumento y da rotina mult
+#	$v0 - valor retornado pela rotina mult
+#	$t0 - i
+#	$t1 - resultado de (i < 0) e de (x < 0)
+
+# Programa principal
+
+	lw		$a0,		4			($gp)			# Prepara argumentos x e y da rotina
+         lw		$a1,		8			($gp)     	#
+         jal	multip								# Chama rotina
+         sw		$v0,		0			($gp)			# Obtem valor de retorno da rotina
+	j halt
+
+# Rotina mult
+
+multip:	add	$v0,		$zero,	$zero			# result := 0
+	add	$t0,		$a0,		$zero			# i := x
+        slt	$t1,		$t0,		$zero			# obtem absoluto(i)
+        beq	$t1,		$zero,	loop			# se i < 0 entao
+	sub	$t0,		$zero,	$t0    		# 	  i := - i
+loop:	beq	$t0,		$zero,	fim_loop		# se i = 0 entao sai do loop
+	add	$v0,		$v0,		$a1			# result := result + y
+         addi	$t0,		$t0,		-1				# i := i - 1
+         j		loop									# volta para inicio do loop
+fim_loop:slt	$t1,		$a0,		$zero			#
+	 beq	$t1,		$zero,	fim_rot		# se x < 0 entao
+         sub	$v0,		$zero,	$v0			#    result := - result
+fim_rot: jr	$ra										# retorna da rotina
+
+halt:	hlt
+
+# Dados
+
+a:			0
+b:			3
+c:			5
+

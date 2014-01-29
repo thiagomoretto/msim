@@ -1,0 +1,7 @@
+	addi	$t0, $t0, 5
+	addi	$t0, $t0, -3
+	addi	$t1, $t1, 10
+	mult	$t1, $t0
+	mfhi	$t2
+	mflo	$t3
+	hlt

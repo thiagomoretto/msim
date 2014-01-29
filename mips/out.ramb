@@ -1,0 +1,7 @@
+defparam d1.INIT_00 = 256'hac0000008c0b8c21;
+defparam d0.INIT_00 = 256'h0000002000000000;
+// Offset Instr     Command
+// 000000 8c210000  lw	$t0,33($gp)			# $t0 = a
+// 000001 8c0b0000  lw	$t1,11($gp)			# $t1 = b
+// 000002 00000020  add	$t0,$t0,$t1			# $t0 = a + b
+// 000003 ac000000  sw	$t0,0($gp)			# c = a + b

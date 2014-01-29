@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<project name="MSim" default="dist" basedir=".">
+	<description>
+		MIPS Simulator
+	</description>
+
+	<property name="Project" value="msim" />
+	<property name="Version" value="0.1" />
+	<property name="MainClass" value="msim.ui.Startup" />
+
+	<!-- Localizações -->
+	<property name="src" location="src" />
+	<property name="bin" location="bin" />
+	<property name="doc" location="doc" />
+	<property name="dist" location="dist" />
+	<property name="inf" location="inf" />
+	<property name="lib" location="lib" />
+    <property name="javadoc.dir" location="doc" />
+	
+	<property name="manifest" value="MANIFEST.MF" />
+
+	<target name="manifest">
+		<manifest file="${manifest}">
+			<attribute name="Built-By" value="${user.name}"/>
+			<attribute name="Main-class" value="${MainClass}"/>		
+		</manifest>
+	</target>
+
+	<target name="new">
+		<tstamp />
+		<mkdir dir="${src}" />
+		<mkdir dir="${bin}" />
+		<mkdir dir="${doc}" />
+		<mkdir dir="${inf}" />
+		<mkdir dir="${lib}" />
+		<mkdir dir="${dist}" />
+	</target>
+
+	<target name="init">
+		<tstamp />
+		<mkdir dir="${bin}" />
+		<mkdir dir="${dist}" />
+        <mkdir dir="${inf}" />
+        <mkdir dir="${lib}" />
+	</target>
+	
+	<target name="compile" depends="init" description="Compila os fontes">
+		<javac srcdir="${src}" destdir="${bin}" source="1.5">
+			<classpath>
+				<pathelement path="lib"/>
+				<fileset dir="lib">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="dist" depends="compile,manifest" description="Cria o pacote">
+		<jar 	jarfile="${dist}/${Project}-${Version}.jar"
+				basedir="${bin}"
+				manifest="${manifest}"
+				/>
+	</target>
+	
+	<target name="build" depends="dist" description="Faz todos os processo">
+	</target>
+	
+	<target name="clean" description="clean up" >
+		<delete dir="${bin}"/>
+		<delete dir="${dist}"/>
+		<delete dir="${inf}"/>
+	</target>
+    
+    <target name="javadoc">
+        <javadoc destdir="${javadoc.dir}">
+            <fileset dir="${src}"/>
+        </javadoc>
+    </target>
+ </project>

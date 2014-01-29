@@ -1,0 +1,14 @@
+	addi	$t0, $t0, 5
+	addi	$t1, $t1, 6
+	mult	$t0, $t1
+	mfhi	$t2
+	mflo	$t3
+	add	$t0, $zero, $zero
+	add	$t1, $zero, $zero
+	addi	$t0, $t0, 50
+	addi	$t1, $t1, 5
+	div	$t0, $t1
+	mfhi	$t2
+	mflo	$t3
+	hlt
+	
